@@ -76,7 +76,8 @@ if __name__ == '__main__':
                 priceData = PriceData()
                 priceDataFrame = priceData.processToDataFrame(dataFrame=originalDataFrame)
                 dataBase.connect(dataName=fileName)
-                dataBase.dataFrameToDataBase(dataFrame=priceDataFrame, tablename=dirName)
+                tableName = 'PRICE__'+ dirName + "__TB"
+                dataBase.dataFrameToDataBase(dataFrame=priceDataFrame, tablename=tableName)
                 dataBase.close()
 
             print('날짜추가')
