@@ -29,22 +29,19 @@ class RSI:
 
 
     def calculate(self, indexRangeList, dataFrame):
-        rsiList = []
         startIndex = 0
         for endIndex in indexRangeList:
             endIndex = int(endIndex)
-            for dataFrameIndex in range(startIndex, endIndex-2):
-                medoHoga = dataFrame['매도호가'].iloc[dataFrameIndex]
-                afterMedoHoga = dataFrame['매도호가'].iloc[dataFrameIndex]
-                self.upORDown(medoHoga=medoHoga, afterMedoHoga= afterMedoHoga)
+            dataFrame = dataFrame['매도호가'].iloc[startIndex:endIndex-1]
 
-            upMean, downMean = self.upORDownAverage()
-            self.rsivalue = upMean/(upMean + downMean)
-            rsiList.append(self.rsivalue)
-            print(self.rsivalue)
-            self.upList = []
-            self.downList = []
+            up = np.where(dataFrame.diff(1) > 0, dataFrame.diff(1), 0)
+            down = np.where(dataFrame.diff(1) < 0, dataFrame.diff(1) * -1, 0)
+
+
+
             startIndex = endIndex
+
+
 
     def upORDown(self, medoHoga, afterMedoHoga):
         medoHoga = float(medoHoga)
