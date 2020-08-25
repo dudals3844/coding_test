@@ -32,10 +32,11 @@ class RSI:
         startIndex = 0
         for endIndex in indexRangeList:
             endIndex = int(endIndex)
-            dataFrame = dataFrame['매도호가'].iloc[startIndex:endIndex-1]
-
-            up = np.where(dataFrame.diff(1) > 0, dataFrame.diff(1), 0)
-            down = np.where(dataFrame.diff(1) < 0, dataFrame.diff(1) * -1, 0)
+            dataFrame = dataFrame.iloc[startIndex:endIndex]
+            dataFrame = dataFrame.astype({'매도호가':'float'})
+            print(dataFrame.dtypes)
+            up = np.where(dataFrame.diff(1)['매도호가'] > 0, dataFrame.diff(1)['매도호가'], 0)
+            down = np.where(dataFrame.diff(1)['매도호가'] < 0, dataFrame.diff(1)['매도호가'] * -1, 0)
 
 
 
